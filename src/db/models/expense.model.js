@@ -1,0 +1,26 @@
+module.exports = (sequelize, type) => {
+    return sequelize.define('expenses', {
+        expenseId: {
+            type: type.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        description: {
+            type: type.TEXT
+        },
+        value: {
+            type: type.DECIMAL,
+            allowNull: false,
+            validate: {
+                isInt: {
+                    msg: 'the value must be numeric, bitch!'
+                }
+            }
+        },
+        date: {
+            type: type.DATE,
+            allowNull: false
+        }
+    });
+}
