@@ -9,7 +9,7 @@ module.exports = (sequilize, type) => {
         subcategory: {
             type: type.STRING(45),
             allowNull: false,
-            unique: true
+            unique: false
         }
     });
 }

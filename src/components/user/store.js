@@ -25,7 +25,9 @@ const getUser = async (username, email = '') => {
 }
 
 const createUser = async (userData) => {
-    const user = await User.create(userData);
+    const user = await User.create(userData, {
+        isNewRecord:true
+    });
     return user;
 }
 

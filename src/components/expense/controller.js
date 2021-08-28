@@ -9,7 +9,7 @@ const getExpenses = async (userId) => {
 
 const createExpense = async(objExpense) => {
     const expense = await create(objExpense);
-    if(!expense) throw new Error('Error creando gasto');
+    if(!expense) throw new Error('errar creando gasto');
 
     return expense;
 }

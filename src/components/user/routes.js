@@ -28,6 +28,7 @@ userRouter.post('/register', encryptPasswordValidate, async(req, res) => {
         const user = await registerUser({...req.body, password: req.encryptPass});
         
         const responseUser = {
+            id: user.userId,
             username: user.username,
             email: user.email,
             token: generateToken(user)

@@ -7,6 +7,7 @@ const createCategory = async (userId, name) => {
 
 const getCategoriesByUser = async (userUserId) => {
     const categories = await Category.findAll({
+        attributes: [['categoryId', 'value'], ['category', 'label']],
         where: {
           userUserId: userUserId
         },

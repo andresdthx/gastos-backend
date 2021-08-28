@@ -6,7 +6,7 @@ const getExpenses = async (userUserId) =>{
             userUserId: userUserId
         },
         order: [
-            ['date', 'ASC']
+            ['expenseId', 'DESC']
           ],
         include: [Category, Subcategory]
     });

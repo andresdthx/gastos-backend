@@ -9,7 +9,7 @@ module.exports = (sequelize, type) => {
         category: {
             type: type.STRING(45),
             allowNull: false,
-            unique: true
+            unique: false
         }
     });
 }

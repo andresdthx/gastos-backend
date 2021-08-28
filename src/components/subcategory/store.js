@@ -2,9 +2,13 @@ const { Subcategory } = require('../../db/connection');
 
 const getSubcategories = async (categoryCategoryId) => {
     const subcategories = await Subcategory.findAll({
+        attributes: [['subcategoryId', 'value'], ['subcategory', 'label']],
         where:{
             categoryCategoryId:categoryCategoryId
-        }
+        },
+        order: [
+            ['subcategoryId', 'DESC']
+        ],
     });
     return subcategories;
 }
