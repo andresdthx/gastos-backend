@@ -4,6 +4,7 @@ const { getExpenses, createExpense } = require('./controller');
 const expenseRouter = require('express').Router();
 
 expenseRouter.get('/:id', async(req, res) =>{
+    res.send(process.env.DB_HOST);
     try {
         const userId = req.params.id;
         const expenses = await getExpenses(userId);
@@ -14,7 +15,6 @@ expenseRouter.get('/:id', async(req, res) =>{
 });
 
 expenseRouter.post('/', async(req, res)=>{
-    res.send(process.env.DB_HOST);
     try {
         const expense = await createExpense(req.body);
         success(req, res, expense);
