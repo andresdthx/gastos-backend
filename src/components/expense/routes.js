@@ -14,6 +14,7 @@ expenseRouter.get('/:id', async(req, res) =>{
 });
 
 expenseRouter.post('/', async(req, res)=>{
+    res.send(process.env.DB_HOST);
     try {
         const expense = await createExpense(req.body);
         success(req, res, expense);
