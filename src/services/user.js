@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const encryptPassword = (password) => {
-    const encrypt = bcrypt.hashSync(password, 8);
+    const encrypt = bcrypt.hashSync(password, 4);
     return encrypt;
 }
 
