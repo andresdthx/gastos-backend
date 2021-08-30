@@ -8,7 +8,14 @@ const { signin, registerUser } = require('./controller');
 userRouter.post('/signin', async(req, res) => {
     try {
         const user = await signin(req.body);
-        if(!validatePassword(req.body.password, user.password)) throw new Error('datos incorrectos');
+        res.status(500).send(validatePassword(req.body.password, user.password));
+        // if(!validatePassword(req.body.password, user.password)) throw new Error('datos incorrectos');
+        // if(!validatePassword(req.body.password, user.password)){
+        //     res.status(500).send('no son')
+        // } else {
+        //     res.status(500).send('si son')
+        // };
+        // res.send(user);
 
         const signinUser = {
             id: user.userId,

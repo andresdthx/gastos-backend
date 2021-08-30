@@ -3,10 +3,12 @@ const { getExpenses, createExpense } = require('./controller');
 
 const expenseRouter = require('express').Router();
 
-expenseRouter.get('/:id', async(req, res) =>{
+expenseRouter.post('/:id', async(req, res) =>{
     try {
         const userId = req.params.id;
-        const expenses = await getExpenses(userId);
+        const months = req.body.months;
+        const groupers = req.body.groupers;
+        const expenses = await getExpenses(userId, months, groupers);
         success(req, res, expenses);
     } catch (error) {
         errors(req, res, error);

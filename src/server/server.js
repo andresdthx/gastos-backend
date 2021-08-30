@@ -7,6 +7,7 @@ const userRouter = require('../components/user/routes');
 const expenseRouter = require('../components/expense/routes');
 const categoryRouter = require('../components/category/routes');
 const subcategoryRouter = require('../components/subcategory/routes');
+const { MONTHS } = require('../utils/consts');
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/frontend/index.html'));
@@ -21,6 +22,10 @@ app.use('/api/users', userRouter);
 app.use('/api/expenses', expenseRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/subcategories', subcategoryRouter);
+
+app.get('/api/utils/months', (req, res) => {
+    res.send(MONTHS);
+})
 
 const port = process.env.PORT;
 
