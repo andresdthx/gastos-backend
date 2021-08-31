@@ -7,7 +7,7 @@ module.exports = (sequelize, type) => {
             allowNull: false
         },
         category: {
-            type: type.STRING(45),
+            type: type.STRING(20),
             allowNull: false,
             unique: false
         }
