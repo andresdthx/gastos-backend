@@ -19,6 +19,9 @@ module.exports = (sequelize, type) => {
             type: type.DATE,
             allowNull: false
         },
+        active: {
+            type: type.BOOLEAN
+        },
     },{
         timestamps: false,
     });

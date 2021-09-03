@@ -14,7 +14,7 @@ const getExpenses = async (userUserId, months, group, attributes) =>{
         },
         group: group,
         order: [
-            ['expenseId', 'DESC']
+            ['date', 'DESC']
         ],
         include: [Category, Subcategory]
     });
