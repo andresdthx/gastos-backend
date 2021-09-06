@@ -1,7 +1,7 @@
 const { Expense, Category, Subcategory, sequelize } = require('../../db/connection');
 const { Op } = require('sequelize');
 
-const getExpenses = async (userUserId, months, group, attributes) =>{
+const getExpenses = async (userUserId, months, group, attributes, include) =>{
     const expenses = await Expense.findAll({
         attributes: attributes,
         where: {

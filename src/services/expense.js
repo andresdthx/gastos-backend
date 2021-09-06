@@ -1,9 +1,7 @@
-const { sequelize } = require('../db/connection');
+const { sequelize, Category } = require('../db/connection');
 const validateGrouper = (groupers) => {
     let atrributes = [
         'expenseId',
-        // 'description',
-        // 'date',
     ];
 
     if(groupers.length > 0) {
@@ -17,6 +15,15 @@ const validateGrouper = (groupers) => {
     return atrributes;
 }
 
+const loadInclude = (groupers) => {
+    let include = [];
+
+    if(groupers.includes('category') && !groupers.includes('subcategory')) include.push(Category);
+
+    return include;
+}
+
 module.exports = {
-    validateGrouper
+    validateGrouper,
+    loadInclude
 }

@@ -29,15 +29,30 @@ const getAlert = async (alertId) => {
     return alert;
 }
 
-const updateActive = async (alert, active) => {
-    alert.active = active;
-    const alertUpdated = await alert.save();
+const updateActive = async (objAlert, alert, message, date, active) => {
+    objAlert.alert = alert;
+    objAlert.message = message;
+    objAlert.date = date;
+    objAlert.active = active;
+    const alertUpdated = await objAlert.save();
     return alertUpdated;
+}
+
+const createAlert = async(alert, message, date, userUserId) => {
+    const alertCreated = await Alert.create({
+        alert: alert,
+        message: message,
+        date: date,
+        userUserId: userUserId,
+        active: true
+    });
+    return alertCreated;
 }
 
 module.exports = {
     listOne: getAlert,
     update: updateActive,
     list: getAlerts,
-    listByDate: getAlertsByAlert
+    listByDate: getAlertsByAlert,
+    addAlert: createAlert
 }

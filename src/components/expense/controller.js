@@ -1,11 +1,12 @@
-const { validateGrouper } = require("../../services/expense");
+const { validateGrouper, loadInclude } = require("../../services/expense");
 const { list, create } = require("./store")
 
 const getExpenses = async (userId, months, groupers) => {
 
     const attributes = validateGrouper(groupers);
+    const include = loadInclude(groupers);
     // return attributes;
-    const expenses = await list(userId, months, groupers, attributes);
+    const expenses = await list(userId, months, groupers, attributes, include);
     if(!expenses) throw new Error('Gastos no encontrados');
 
     return expenses;

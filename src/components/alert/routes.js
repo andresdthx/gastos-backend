@@ -1,5 +1,5 @@
 const { success, errors } = require('../../network/response');
-const { getAlerts, getAlert, updateAlert } = require('./controller');
+const { getAlerts, getAlert, updateAlert, createAlert } = require('./controller');
 
 const alertRouter = require('express').Router();
 
@@ -12,14 +12,23 @@ alertRouter.get('/:id', async(req, res)=> {
     }
 });
 
-alertRouter.put('/:id', async (req, res) => {
+alertRouter.put('/', async (req, res) => {
     try {
-        const alert = await getAlert(req.params.id);
-        const alertUpdated = await updateAlert(alert, req.body.active);
+        const alert = await getAlert(req.body.id);
+        const alertUpdated = await updateAlert(alert, req.body);
         success(req, res, alertUpdated);
     } catch (error) {
         errors(req, res, error.message);
     }
 });
+
+alertRouter.post('/', async(req, res) => {
+    try {
+        const alert = await createAlert(req.body);
+        success(req, res, alert);
+    } catch (error) {
+        errors(req, res, error.message);
+    }
+})
 
 module.exports = alertRouter;

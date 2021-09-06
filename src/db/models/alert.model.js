@@ -16,7 +16,7 @@ module.exports = (sequelize, type) => {
             allowNull: false
         },
         date: {
-            type: type.DATE,
+            type: type.INTEGER,
             allowNull: false
         },
         active: {

@@ -1,4 +1,4 @@
-const { list, listByDate, listOne, update } = require("./store");
+const { list, listByDate, listOne, update, addAlert } = require("./store");
 const moment = require('moment');
 const { sendEmail, transporterEmail } = require("../email/controller");
 
@@ -13,8 +13,9 @@ const getAlert = async (alertId) => {
     if (!alert) throw new Error('Error get alert');
     return alert;
 }
-const updateAlert = async (alert, active) => {
-    const alertUpdated = await update(alert, active);
+const updateAlert = async (objAlert, alertData) => {
+    const { alert, message, date, active } = alertData;
+    const alertUpdated = await update(objAlert, alert, message, date, active);
     if (!alertUpdated) throw new Error('Error updated alert');
     return alertUpdated;
 }
@@ -38,10 +39,19 @@ const sendAlerts = async () => {
     });
 }
 
+const createAlert = async (data) => {
+    const { alert, message, date } = data.alert;
+    const { userId } = data;
+    const alertCreated = await addAlert(alert, message, date, userId);
+    if (!alertCreated) throw new Error('Error create alert');
+    return alertCreated;
+}
+
 module.exports = {
     getAlert,
     getAlerts,
     getAlertsByDate,
     updateAlert,
-    sendAlerts
+    sendAlerts,
+    createAlert
 }
