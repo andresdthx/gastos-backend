@@ -58,7 +58,9 @@ const sendNotification = async (subscribes, contentMessage) => {
 
     const payload = JSON.stringify({
         title: title,
-        message: message
+        message: message,
+        icon: 'https://www.seekpng.com/png/full/329-3290668_youtube-logo-youtube-demo-video-icon.png',
+        badge: 'https://www.seekpng.com/png/full/329-3290668_youtube-logo-youtube-demo-video-icon.png'
     });
     await webpush.sendNotification(subscribes[0].subscribe, payload);
     await webpush.sendNotification(subscribes[1].subscribe, payload);
