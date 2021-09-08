@@ -61,11 +61,11 @@ const sendNotification = async (subscribes, contentMessage) => {
         title: title,
         message: message
     });
-    await webpush.sendNotification(subscribes[0].subscribe, payload);
-    await webpush.sendNotification(subscribes[1].subscribe, payload);
-    await webpush.sendNotification(subscribes[2].subscribe, payload);
-    // subscribes.map(item => await webpush.sendNotification(item.subscribe, payload));
-    // return path.join(__dirname, '../../../public/frontend/logo512.png');
+
+    subscribes.map(async (item) => {
+        return await webpush.sendNotification(item.subscribe, payload);
+    });
+
 }
 
 module.exports = {
