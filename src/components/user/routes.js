@@ -25,7 +25,7 @@ userRouter.post('/register', encryptPasswordValidate, async(req, res) => {
 });
 
 userRouter.post('/suscription', async (req, res) => {
-    const pushSuscription = req.body;
+    const pushSuscription = req.body.suscription;
 
     res.status(200).json();
 
