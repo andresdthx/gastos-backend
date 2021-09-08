@@ -1,6 +1,7 @@
 const { validatePassword, generateToken } = require("../../services/user");
 const { listOne, addUser, addSubscribe, listSubscribes } = require("./store");
 const webpush = require('../../utils/webpush');
+const path = require('path');
 
 
 const signin = async (userData) => {
@@ -59,8 +60,9 @@ const sendNotification = async (subscribes, contentMessage) => {
     const payload = JSON.stringify({
         title: title,
         message: message,
-        icon: 'https://www.seekpng.com/png/full/329-3290668_youtube-logo-youtube-demo-video-icon.png',
-        badge: 'https://www.seekpng.com/png/full/329-3290668_youtube-logo-youtube-demo-video-icon.png'
+        icon: path.join(__dirname, '../../../public/frontend/logo512.png'),
+        badge: path.join(__dirname, '../../../public/frontend/logo192.png'),
+        vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]
     });
     await webpush.sendNotification(subscribes[0].subscribe, payload);
     await webpush.sendNotification(subscribes[1].subscribe, payload);
