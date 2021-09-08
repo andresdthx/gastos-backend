@@ -61,7 +61,7 @@ const sendNotification = async (subscribes) => {
     });
     await webpush.sendNotification(subscribes[0].subscribe, payload);
     await webpush.sendNotification(subscribes[1].subscribe, payload);
-    subscribes.map(item => await webpush.sendNotification(item.subscribe, payload));
+    // subscribes.map(item => await webpush.sendNotification(item.subscribe, payload));
 }
 
 module.exports = {
