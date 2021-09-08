@@ -24,9 +24,21 @@ userRouter.post('/register', encryptPasswordValidate, async(req, res) => {
     }
 });
 
-userRouter.post('/suscription', (req, res) => {
-    console.log(req.body);
+userRouter.post('/suscription', async (req, res) => {
+    const pushSuscription = req.body;
+
     res.status(200).json();
+
+    const payload = JSON.stringify({
+        title: 'My custom notification',
+        message: 'Hello word'
+    });
+
+    try {
+        await webpush.sendNotification(pushSuscription, payload);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 module.exports = userRouter;
