@@ -32,26 +32,13 @@ userRouter.post('/suscription', async (req, res) => {
     } catch (error) {
         errors(req, res, error.message);
     }
-
-    // res.status(200).json();
-
-    // const payload = JSON.stringify({
-    //     title: 'My custom notification',
-    //     message: 'Hello word'
-    // });
-
-    // try {
-    //     await webpush.sendNotification(pushSuscription, payload);
-    // } catch (error) {
-    //     console.log(error);
-    // }
 });
 
 userRouter.post('/new-notification', async(req, res) => {
     try {
        const subscribes = await getSubscribes();
        await sendNotification(subscribes, req.body);
-       success(req, res, 'Send notifications');
+       success(req, res, subscribes);
     } catch (error) {
         errors(req, res, error.message);
     }

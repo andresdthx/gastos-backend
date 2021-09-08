@@ -60,13 +60,14 @@ const sendNotification = async (subscribes, contentMessage) => {
     const payload = JSON.stringify({
         title: title,
         message: message,
-        icon: path.join(__dirname, '../../../public/frontend/logo512.png'),
-        badge: path.join(__dirname, '../../../public/frontend/logo192.png'),
-        vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]
+        icon: 'https://w7.pngwing.com/pngs/77/445/png-transparent-gray-wolf-logo-youtube-youtube-logo-vertebrate-monochrome-thumbnail.png',
+        badge: 'https://lh3.googleusercontent.com/proxy/J00ku-GKvrJThlGxGq1jmPgLzEXjl5y2ux0-rlFpVcVHuWmvmOrgnveAgUHAGslCCSk-lWkIFAbKD2r3U1cufomG7BzKjs3FVC3Q2mj0GV3gWSdRcDUllj4XDHKE1OvRGMLgJmpfH9yN5vx0f50fppUZff-8Fuv_D7IrN2m4xSVMzlz-',
     });
     await webpush.sendNotification(subscribes[0].subscribe, payload);
     await webpush.sendNotification(subscribes[1].subscribe, payload);
+    await webpush.sendNotification(subscribes[2].subscribe, payload);
     // subscribes.map(item => await webpush.sendNotification(item.subscribe, payload));
+    return path.join(__dirname, '../../../public/frontend/logo512.png');
 }
 
 module.exports = {
