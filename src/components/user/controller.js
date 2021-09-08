@@ -53,11 +53,12 @@ const getSubscribes = async() => {
     return subscribes;
 }
 
-const sendNotification = async (subscribes) => {
+const sendNotification = async (subscribes, contentMessage) => {
+    const { title, message } = contentMessage;
 
     const payload = JSON.stringify({
-        title: 'My custom notification',
-        message: 'Hello word'
+        title: title,
+        message: message
     });
     await webpush.sendNotification(subscribes[0].subscribe, payload);
     await webpush.sendNotification(subscribes[1].subscribe, payload);

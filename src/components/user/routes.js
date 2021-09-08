@@ -50,7 +50,7 @@ userRouter.post('/suscription', async (req, res) => {
 userRouter.post('/new-notification', async(req, res) => {
     try {
        const subscribes = await getSubscribes();
-       await sendNotification(subscribes);
+       await sendNotification(subscribes, req.body);
        success(req, res, 'Send notifications');
     } catch (error) {
         errors(req, res, error.message);
