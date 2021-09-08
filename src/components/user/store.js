@@ -1,4 +1,4 @@
-const { User } = require('../../db/connection');
+const { User, Subscribe } = require('../../db/connection');
 const { Op } = require('sequelize');
 
 const getUser = async (username, email = '') => {
@@ -31,7 +31,16 @@ const createUser = async (userData) => {
     return user;
 }
 
+const createSubscribe = async (userId, suscription) => {
+    const subsCreated = await Subscribe.create({
+        subscribe: suscription,
+        userUserId: userId
+    });
+    return subsCreated;
+}
+
 module.exports = {
+    addSubscribe: createSubscribe,
     listOne: getUser,
     addUser: createUser
 }

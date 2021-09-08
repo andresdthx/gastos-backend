@@ -1,5 +1,5 @@
 const { validatePassword, generateToken } = require("../../services/user");
-const { listOne, addUser } = require("./store");
+const { listOne, addUser, addSubscribe } = require("./store");
 
 
 const signin = async (userData) => {
@@ -37,7 +37,16 @@ const registerUser = async(userData) => {
     return signinUser;
 }
 
+const createSubscribe = async (data) => {
+    const { suscription, userId } = data;
+    const subsCreated = await addSubscribe(userId, suscription);
+    if (!subsCreated) throw new Error('Error created subscribe');
+
+    return subsCreated;
+}
+
 module.exports = {
     signin,
-    registerUser
+    registerUser,
+    createSubscribe
 }
