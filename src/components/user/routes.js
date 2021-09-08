@@ -2,6 +2,7 @@ const { encryptPasswordValidate } = require('../../middlewares/user.middleware')
 const { success, errors } = require('../../network/response');
 const { signin, registerUser } = require('./controller');
 const userRouter = require('express').Router();
+const webpush = require('../../utils/webpush');
 
 userRouter.post('/signin', async(req, res) => {
     try {
@@ -21,6 +22,11 @@ userRouter.post('/register', encryptPasswordValidate, async(req, res) => {
         res.send(error);
         errors(req, res, error);
     }
+});
+
+userRouter.post('/suscription', (req, res) => {
+    console.log(req.body);
+    res.status(200).json();
 })
 
 module.exports = userRouter;

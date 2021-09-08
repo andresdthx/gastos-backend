@@ -1,8 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const cron = require('node-cron');
 const app = express();
 const cors = require('cors');
 const path = require('path');
+const morgan = require('morgan');
 
 const userRouter = require('../components/user/routes');
 const expenseRouter = require('../components/expense/routes');
@@ -30,6 +33,8 @@ app.use('/api/alerts', alertRouter);
 app.get('/api/utils/months', (req, res) => {
     res.send(MONTHS);
 });
+
+app.use(morgan);
 
 const port = process.env.PORT;
 
