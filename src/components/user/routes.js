@@ -1,6 +1,6 @@
 const { encryptPasswordValidate } = require('../../middlewares/user.middleware');
 const { success, errors } = require('../../network/response');
-const { signin, registerUser, createSubscribe } = require('./controller');
+const { signin, registerUser, createSubscribe, getSubscribes, sendNotification } = require('./controller');
 const userRouter = require('express').Router();
 const webpush = require('../../utils/webpush');
 
@@ -45,6 +45,16 @@ userRouter.post('/suscription', async (req, res) => {
     // } catch (error) {
     //     console.log(error);
     // }
-})
+});
+
+userRouter.post('/new-notification', async(req, res) => {
+    try {
+       const subscribes = await getSubscribes();
+       await sendNotification(subscribes);
+       success(req, res, 'Send notifications');
+    } catch (error) {
+        errors(req, res, error.message);
+    }
+});
 
 module.exports = userRouter;

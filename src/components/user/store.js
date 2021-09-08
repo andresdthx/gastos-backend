@@ -39,7 +39,13 @@ const createSubscribe = async (userId, suscription) => {
     return subsCreated;
 }
 
+const getSubscribes = async() => {
+    const subscribes = await Subscribe.findAll();
+    return subscribes;
+}
+
 module.exports = {
+    listSubscribes: getSubscribes,
     addSubscribe: createSubscribe,
     listOne: getUser,
     addUser: createUser

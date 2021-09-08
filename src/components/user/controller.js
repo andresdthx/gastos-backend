@@ -1,5 +1,6 @@
 const { validatePassword, generateToken } = require("../../services/user");
-const { listOne, addUser, addSubscribe } = require("./store");
+const { listOne, addUser, addSubscribe, listSubscribes } = require("./store");
+const webpush = require('../../utils/webpush');
 
 
 const signin = async (userData) => {
@@ -45,8 +46,28 @@ const createSubscribe = async (data) => {
     return subsCreated;
 }
 
+const getSubscribes = async() => {
+    const subscribes = await listSubscribes();
+    if(!subscribes) throw new Error('Error getting subscribes');
+
+    return subscribes;
+}
+
+const sendNotification = async (subscribes) => {
+
+    const payload = JSON.stringify({
+        title: 'My custom notification',
+        message: 'Hello word'
+    });
+    await webpush.sendNotification(subscribes[0].subscribe, payload);
+    await webpush.sendNotification(subscribes[1].subscribe, payload);
+    subscribes.map(item => await webpush.sendNotification(item.subscribe, payload));
+}
+
 module.exports = {
     signin,
     registerUser,
-    createSubscribe
+    createSubscribe,
+    getSubscribes,
+    sendNotification
 }
