@@ -54,18 +54,14 @@ const getSubscribes = async() => {
     return subscribes;
 }
 
-const sendNotification = async (subscribes, contentMessage) => {
-    const { title, message } = contentMessage;
-
-    const payload = JSON.stringify({
-        title: title,
-        message: message
-    });
-
+const sendNotification = async (subscribes) => {
     subscribes.map(async (item) => {
-        return await webpush.sendNotification(item.subscribe, payload);
+        let payload = JSON.stringify({
+            title: item.alert,
+            message: item.message
+        });
+        await webpush.sendNotification(item.suscribes.subscribe, payload);
     });
-
 }
 
 module.exports = {

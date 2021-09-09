@@ -13,7 +13,6 @@ const categoryRouter = require('../components/category/routes');
 const subcategoryRouter = require('../components/subcategory/routes');
 const { MONTHS } = require('../utils/consts');
 const alertRouter = require('../components/alert/routes');
-const { getAlertsByDate, sendAlerts } = require('../components/alert/controller');
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/frontend/index.html'));
@@ -34,7 +33,7 @@ app.get('/api/utils/months', (req, res) => {
     res.send(MONTHS);
 });
 
-app.use(morgan);
+// app.use(morgan);
 
 const port = process.env.PORT;
 
@@ -42,15 +41,17 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
-// cron.schedule('* * * * * * ', () => {
+// cron.schedule('30 10 * * *', () => {
 //     sendAlerts()
 //     console.log("enviado");
 // });
 
-// app.get('/moment', async (req, res) => {
-//     const alert = await getAlertsByDate();
-//     res.send(alert);
-// });
+cron.schedule('* * * * *', async () => {
+    const response = await fetch('https://deroapp.herokuapp.com/api/alerts/send');
+    const body = await response.json();
+    console.log('inside cron function', body);
+});
+
 
 
 module.exports = app;

@@ -1,5 +1,6 @@
 const { success, errors } = require('../../network/response');
-const { getAlerts, getAlert, updateAlert, createAlert } = require('./controller');
+const { sendNotification } = require('../user/controller');
+const { getAlerts, getAlert, updateAlert, createAlert, getAlertsByDate } = require('./controller');
 
 const alertRouter = require('express').Router();
 
@@ -29,6 +30,17 @@ alertRouter.post('/', async(req, res) => {
     } catch (error) {
         errors(req, res, error.message);
     }
-})
+});
+
+alertRouter.post('/send', async(req, res) => {
+
+    try {
+        const alerts = await getAlertsByDate();
+        await sendNotification(alerts);
+        success(req, res, alerts);
+    } catch (error) {
+        errors(req, res, error.message);
+    }
+});
 
 module.exports = alertRouter;

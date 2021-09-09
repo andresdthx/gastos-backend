@@ -20,13 +20,16 @@ const updateAlert = async (objAlert, alertData) => {
     return alertUpdated;
 }
 const getDate = () => {
-    const today = moment().format().split('T');
-    return today;
+    const date = moment().format().split('T');
+    return date;
 }
 
 const getAlertsByDate = async () => {
     const date = getDate()[0];
-    const alerts = await listByDate(date);
+    const today = date.split('-')[2];
+    const day = Number(today);
+
+    const alerts = await listByDate(day);
     if (!alerts) throw new Error('Error get alerts');
     return alerts;
 }

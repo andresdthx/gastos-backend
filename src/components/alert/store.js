@@ -1,4 +1,4 @@
-const { Alert, User } = require('../../db/connection');
+const { Alert, User, Subscribe } = require('../../db/connection');
 const { Op } = require('sequelize');
 
 const getAlerts = async (userUserId) => {
@@ -11,14 +11,21 @@ const getAlerts = async (userUserId) => {
     return alerts;
 }
 
-const getAlertsByAlert = async (date) => {
+const getAlertsByDate = async (date) => {
     const alerts = await Alert.findAll({
+        attributes: ['alert', 'message'],
         where: {
-            date: {
-                [Op.substring] : date
-            }
+            date: date,
+            active: true
         },
-        include: [User]
+        include: [{
+            model: User,
+            attributes: ['userId', 'username', 'email'],
+            include: [{
+                model: Subscribe,
+                attributes: ['subscribe']
+            }]
+        }]
     });
     return alerts;
 }
@@ -53,6 +60,6 @@ module.exports = {
     listOne: getAlert,
     update: updateActive,
     list: getAlerts,
-    listByDate: getAlertsByAlert,
+    listByDate: getAlertsByDate,
     addAlert: createAlert
 }

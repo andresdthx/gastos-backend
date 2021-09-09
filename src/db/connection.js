@@ -33,6 +33,7 @@ Expense.belongsTo(Subcategory);
 Expense.belongsTo(User);
 Alert.belongsTo(User);
 Subscribe.belongsTo(User);
+User.hasMany(Subscribe);
 
 sequelize.sync({ force: false, logging: false }).then(() => {
     console.log("Database connected!!")
