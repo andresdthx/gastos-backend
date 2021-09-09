@@ -60,7 +60,9 @@ const sendNotification = async (subscribes) => {
             title: "hola",
             message: "mensaje"
         });
-        return await webpush.sendNotification(item.subscribe, payload);
+        return await item.user.subscribes.map(async (sub) => {
+            return await webpush.sendNotification(sub.subscribe, payload);
+        })
     });
 }
 
