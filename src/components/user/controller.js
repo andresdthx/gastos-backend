@@ -55,14 +55,14 @@ const getSubscribes = async() => {
 }
 
 const sendNotification = async (subscribes) => {
-    subscribes.map(async (item) => {
+    subscribes.map((item) => {
         let payload = JSON.stringify({
             title: "hola",
             message: "mensaje"
         });
-        return await item.user.subscribes.map(async (sub) => {
+        item.user.suscribes.map(async (sub) => {
             return await webpush.sendNotification(sub.subscribe, payload);
-        })
+        });
     });
 }
 
