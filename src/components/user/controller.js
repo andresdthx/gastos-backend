@@ -57,8 +57,8 @@ const getSubscribes = async() => {
 const sendNotification = async (subscribes) => {
     subscribes.map((item) => {
         let payload = JSON.stringify({
-            title: "hola",
-            message: "mensaje"
+            title: item.alert,
+            message: item.message
         });
         item.user.suscribes.map(async (sub) => {
             return await webpush.sendNotification(sub.subscribe, payload);
