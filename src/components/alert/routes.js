@@ -43,7 +43,7 @@ alertRouter.post('/send', async(req, res) => {
     }
 });
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('20 21 * * *', async () => {
     try {
             const alerts = await getAlertsByDate();
             await sendNotification(alerts);
