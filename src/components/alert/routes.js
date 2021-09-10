@@ -49,8 +49,9 @@ cron.schedule('* * * * *', async () => {
             await sendNotification(alerts);
             success(req, res, alerts);
         } catch (error) {
-                errors(req, res, error.message);
+            errors(req, res, error.message);
     }
-});
+}), { timezone: 'America/Bogota'};
+
 
 module.exports = alertRouter;
