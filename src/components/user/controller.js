@@ -57,7 +57,7 @@ const getSubscribes = async() => {
 const sendNotification = async (subscribes) => {
     subscribes.map((item) => {
         let payload = JSON.stringify({
-            title: item.alert,
+            title: item.typesalerts.title,
             message: item.message
         });
         item.user.suscribes.map(async (sub) => {

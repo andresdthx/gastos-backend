@@ -1,6 +1,7 @@
-const { list, listByDate, listOne, update, addAlert } = require("./store");
+const { list, listByDate, listOne, update, addAlert, listTypes, remove } = require("./store");
 const moment = require('moment');
 const { sendEmail, transporterEmail } = require("../email/controller");
+const { validateDelete } = require("../../services/alert");
 
 const getAlerts = async(userId) => {
     const alerts = await list(userId);
@@ -50,11 +51,26 @@ const createAlert = async (data) => {
     return alertCreated;
 }
 
+const getTypeAlerts = async () => {
+    const typeAlerts = await listTypes();
+    if (!typeAlerts) throw new Error('Error type alerts not found');
+    return typeAlerts;
+}
+
+const deleteAlert = async(alertId) => {
+    var deleted = remove(alertId);
+    if(!deleted) throw new Error('Error server');
+    // deleted = validateDelete(deleted);
+    return deleted;
+}
+
 module.exports = {
     getAlert,
     getAlerts,
     getAlertsByDate,
     updateAlert,
     sendAlerts,
-    createAlert
+    createAlert,
+    getTypeAlerts,
+    deleteAlert
 }

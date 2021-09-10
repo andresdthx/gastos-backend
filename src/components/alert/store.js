@@ -1,12 +1,13 @@
-const { Alert, User, Subscribe } = require('../../db/connection');
+const { Alert, User, Subscribe, TypeAlert } = require('../../db/connection');
 const { Op } = require('sequelize');
 
 const getAlerts = async (userUserId) => {
     const alerts = await Alert.findAll({
-        attributes: ['alertId', 'alert', 'message', 'date', 'active'],
+        attributes: ['alertId', 'message', 'date', 'active'],
         where: {
             userUserId: userUserId
-        }
+        },
+        include:[TypeAlert]
     });
     return alerts;
 }
@@ -18,14 +19,20 @@ const getAlertsByDate = async (date) => {
             date: date,
             active: true
         },
-        include: [{
-            model: User,
-            attributes: ['userId', 'username', 'email'],
-            include: [{
-                model: Subscribe,
-                attributes: ['subscribe']
-            }]
-        }]
+        include: [
+            {
+                model: TypeAlert,
+                attributes: ['title']
+            },
+            {
+                model: User,
+                attributes: ['userId', 'username', 'email'],
+                include: [{
+                    model: Subscribe,
+                    attributes: ['subscribe']
+                }]
+            }
+        ]
     });
     return alerts;
 }
@@ -45,15 +52,35 @@ const updateActive = async (objAlert, alert, message, date, active) => {
     return alertUpdated;
 }
 
-const createAlert = async(alert, message, date, userUserId) => {
+const createAlert = async(typesalertTypeAlertId, message, date, userUserId) => {
     const alertCreated = await Alert.create({
-        alert: alert,
-        message: message,
         date: date,
+        active: true,
+        message: message,
         userUserId: userUserId,
-        active: true
+        typesalertTypeAlertId: typesalertTypeAlertId,
     });
     return alertCreated;
+}
+
+const getTypeAlerts = async() => {
+    const typeAlerts = await TypeAlert.findAll({
+        attributes: [['typeAlertId', 'value'], ['typeAlert', 'label']],
+    });
+    return typeAlerts;
+}
+
+const deleteAlert = (alertId) => {
+    const deleted = Alert.destroy({
+        where: {
+            alertId: alertId
+        }
+    })
+    .then((rowDeleted) => { 
+        return { deleted: rowDeleted }
+    });
+
+    return deleted;
 }
 
 module.exports = {
@@ -61,5 +88,7 @@ module.exports = {
     update: updateActive,
     list: getAlerts,
     listByDate: getAlertsByDate,
-    addAlert: createAlert
+    addAlert: createAlert,
+    listTypes: getTypeAlerts,
+    remove: deleteAlert
 }

@@ -4,6 +4,7 @@ const CategoryModel = require('./models/category.model');
 const SubcategoryModel = require('./models/subcategory.model');
 const ExpenseModel = require('./models/expense.model');
 const AlertModel = require('./models/alert.model');
+const TypeAlertModel = require('./models/typesAlerts.model');
 const SubscribeModel = require('./models/subscribe.model');
 const dbConfig = require('../config/db.config');
 
@@ -25,6 +26,7 @@ const Subcategory = SubcategoryModel(sequelize, Sequelize);
 const Expense = ExpenseModel(sequelize, Sequelize);
 const Alert = AlertModel(sequelize, Sequelize);
 const Subscribe = SubscribeModel(sequelize, Sequelize);
+const TypeAlert = TypeAlertModel(sequelize, Sequelize);
 
 Category.belongsTo(User);
 Subcategory.belongsTo(Category);
@@ -34,10 +36,11 @@ Expense.belongsTo(User);
 Alert.belongsTo(User);
 Subscribe.belongsTo(User);
 User.hasMany(Subscribe);
+Alert.belongsTo(TypeAlert);
 
 sequelize.sync({ force: false, logging: false }).then(() => {
     console.log("Database connected!!")
 })
 
 
-module.exports = { sequelize, User, Category, Subcategory, Expense, Alert, Subscribe };
+module.exports = { sequelize, User, Category, Subcategory, Expense, Alert, Subscribe, TypeAlert };

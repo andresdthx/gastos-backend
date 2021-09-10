@@ -6,11 +6,6 @@ module.exports = (sequelize, type) => {
             primaryKey: true,
             allowNull: false
         },
-        alert: {
-            type: type.STRING(20),
-            allowNull: false,
-            unique: false
-        },
         message: {
             type: type.TEXT,
             allowNull: false

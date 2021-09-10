@@ -1,7 +1,7 @@
 const CronJob = require('cron').CronJob;
 const { success, errors } = require('../../network/response');
 const { sendNotification } = require('../user/controller');
-const { getAlerts, getAlert, updateAlert, createAlert, getAlertsByDate } = require('./controller');
+const { getAlerts, getAlert, updateAlert, createAlert, getAlertsByDate, getTypeAlerts, deleteAlert } = require('./controller');
 
 const alertRouter = require('express').Router();
 
@@ -38,6 +38,24 @@ alertRouter.post('/send', async(req, res) => {
         const alerts = await getAlertsByDate();
         await sendNotification(alerts);
         success(req, res, alerts);
+    } catch (error) {
+        errors(req, res, error.message);
+    }
+});
+
+alertRouter.post('/types', async (req, res) => {
+    try {
+        const typeAlerts = await getTypeAlerts();
+        success(req, res, typeAlerts);
+    } catch (error) {
+        errors(req, res, error.message);
+    }
+});
+
+alertRouter.delete('/:id', async(req, res) => {
+    try {
+        const deleted = await deleteAlert(req.params.id);
+        success(req, res, deleted)
     } catch (error) {
         errors(req, res, error.message);
     }
