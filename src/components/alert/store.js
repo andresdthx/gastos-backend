@@ -14,7 +14,7 @@ const getAlerts = async (userUserId) => {
 
 const getAlertsByDate = async (date) => {
     const alerts = await Alert.findAll({
-        attributes: ['alert', 'message'],
+        attributes: ['message'],
         where: {
             date: date,
             active: true
