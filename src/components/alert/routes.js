@@ -1,3 +1,4 @@
+const cron = require('node-cron');
 const { success, errors } = require('../../network/response');
 const { sendNotification } = require('../user/controller');
 const { getAlerts, getAlert, updateAlert, createAlert, getAlertsByDate } = require('./controller');
@@ -33,7 +34,16 @@ alertRouter.post('/', async(req, res) => {
 });
 
 alertRouter.post('/send', async(req, res) => {
+    try {
+        const alerts = await getAlertsByDate();
+        await sendNotification(alerts);
+        success(req, res, alerts);
+    } catch (error) {
+        errors(req, res, error.message);
+    }
+});
 
+cron.schedule('* * * * *', async () => {
     try {
         const alerts = await getAlertsByDate();
         await sendNotification(alerts);

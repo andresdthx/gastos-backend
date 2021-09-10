@@ -46,11 +46,11 @@ app.listen(port, () => {
 //     console.log("enviado");
 // });
 
-cron.schedule('* * * * *', async () => {
-    const response = await fetch('https://deroapp.herokuapp.com/api/alerts/send');
-    const body = await response.json();
-    console.log('inside cron function', body);
-});
+// cron.schedule('* * * * *', async () => {
+//     const response = await fetch('https://deroapp.herokuapp.com/api/alerts/send');
+//     const body = await response.json();
+//     console.log('inside cron function', body);
+// });
 
 
 
