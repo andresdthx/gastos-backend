@@ -1,4 +1,5 @@
-const cron = require('node-cron');
+// const cron = require('node-cron');
+const CronJob = require('cron').CronJob;
 const { success, errors } = require('../../network/response');
 const { sendNotification } = require('../user/controller');
 const { getAlerts, getAlert, updateAlert, createAlert, getAlertsByDate } = require('./controller');
@@ -43,7 +44,17 @@ alertRouter.post('/send', async(req, res) => {
     }
 });
 
-cron.schedule('20 21 * * *', async () => {
+// cron.schedule('20 21 * * *', async () => {
+//     try {
+//             const alerts = await getAlertsByDate();
+//             await sendNotification(alerts);
+//             success(req, res, alerts);
+//         } catch (error) {
+//             errors(req, res, error.message);
+//     }
+// }), { timezone: 'America/Bogota'};
+
+const job = new CronJob('28 21 * * *', async() => {
     try {
             const alerts = await getAlertsByDate();
             await sendNotification(alerts);
@@ -51,7 +62,8 @@ cron.schedule('20 21 * * *', async () => {
         } catch (error) {
             errors(req, res, error.message);
     }
-}), { timezone: 'America/Bogota'};
+}, null, true, 'America/Bogota');
+job.start();
 
 
 module.exports = alertRouter;
