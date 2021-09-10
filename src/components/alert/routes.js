@@ -44,14 +44,14 @@ alertRouter.post('/send', async(req, res) => {
 });
 
 cron.schedule('* * * * *', async () => {
-    console.log('hola');
-    // try {
-    //     const alerts = await getAlertsByDate();
-    //     await sendNotification(alerts);
-    //     success(req, res, alerts);
-    // } catch (error) {
-    //     errors(req, res, error.message);
-    // }
+    try {
+            const alerts = await getAlertsByDate();
+            await sendNotification(alerts);
+            console.log('hola');
+            success(req, res, alerts);
+        } catch (error) {
+                errors(req, res, error.message);
+    }
 });
 
 module.exports = alertRouter;
