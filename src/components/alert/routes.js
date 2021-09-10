@@ -1,4 +1,3 @@
-// const cron = require('node-cron');
 const CronJob = require('cron').CronJob;
 const { success, errors } = require('../../network/response');
 const { sendNotification } = require('../user/controller');
@@ -43,16 +42,6 @@ alertRouter.post('/send', async(req, res) => {
         errors(req, res, error.message);
     }
 });
-
-// cron.schedule('20 21 * * *', async () => {
-//     try {
-//             const alerts = await getAlertsByDate();
-//             await sendNotification(alerts);
-//             success(req, res, alerts);
-//         } catch (error) {
-//             errors(req, res, error.message);
-//     }
-// }), { timezone: 'America/Bogota'};
 
 const job = new CronJob('28 21 * * *', async() => {
     try {
