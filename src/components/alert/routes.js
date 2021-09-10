@@ -47,7 +47,6 @@ cron.schedule('* * * * *', async () => {
     try {
             const alerts = await getAlertsByDate();
             await sendNotification(alerts);
-            console.log('hola');
             success(req, res, alerts);
         } catch (error) {
                 errors(req, res, error.message);

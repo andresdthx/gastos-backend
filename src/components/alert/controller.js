@@ -20,7 +20,7 @@ const updateAlert = async (objAlert, alertData) => {
     return alertUpdated;
 }
 const getDate = () => {
-    const date = moment().format().split('T');
+    const date = moment().tz("America/Bogota").format().split('T');
     return date;
 }
 
