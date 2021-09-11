@@ -26,7 +26,26 @@ const createExpense = async(objExpense) => {
     return expense;
 }
 
+const getExpense = async(expenseId) => {
+    const expense = await Expense.findOne({ 
+        attributes: ['expenseId', 'description', 'value', 'date'],
+        where: { expenseId: expenseId },
+        include: [
+            {
+                model: Category,
+                attributes: [['categoryId', 'value'], ['category', 'label']],
+            },
+            {
+                model: Subcategory,
+                attributes: [['subcategoryId', 'value'], ['subcategory', 'label']],
+            }
+        ]
+    });
+    return expense;
+}
+
 module.exports = {
     list: getExpenses,
+    listOne: getExpense,
     create: createExpense
 }
