@@ -61,7 +61,18 @@ alertRouter.delete('/:id', async(req, res) => {
     }
 });
 
-const job = new CronJob('28 21 * * *', async() => {
+const job = new CronJob('00 10 * * *', async() => {
+    try {
+            const alerts = await getAlertsByDate();
+            await sendNotification(alerts);
+            success(req, res, alerts);
+        } catch (error) {
+            errors(req, res, error.message);
+    }
+}, null, true, 'America/Bogota');
+job.start();
+
+const job = new CronJob('00 15 * * *', async() => {
     try {
             const alerts = await getAlertsByDate();
             await sendNotification(alerts);
