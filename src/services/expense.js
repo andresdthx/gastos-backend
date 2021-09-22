@@ -17,13 +17,18 @@ const validateGrouper = (groupers) => {
 
 const loadInclude = (groupers) => {
     let include = [];
-
     if(groupers.includes('category') && !groupers.includes('subcategory')) include.push(Category);
-
     return include;
+}
+
+const validateEmptyData = (value) => {
+    var isEmpty = false;
+    if(value === '') isEmpty = true;
+    return isEmpty;
 }
 
 module.exports = {
     validateGrouper,
-    loadInclude
+    loadInclude,
+    validateEmptyData
 }

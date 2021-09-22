@@ -1,5 +1,6 @@
 const { errors, success } = require('../../network/response');
 const { getExpenses, createExpense, getExpense } = require('./controller');
+const { validateData } = require('../../middlewares/expense.middleware');
 
 const expenseRouter = require('express').Router();
 
@@ -15,9 +16,10 @@ expenseRouter.post('/:id', async(req, res) =>{
     }
 });
 
-expenseRouter.post('/', async(req, res)=>{
+expenseRouter.post('/', validateData, async(req, res)=>{
     try {
         const expense = await createExpense(req.body);
+        res.send(expense);
         success(req, res, expense);
     } catch (error) {
         errors(req, res, error);

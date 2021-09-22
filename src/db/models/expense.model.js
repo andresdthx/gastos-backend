@@ -14,7 +14,7 @@ module.exports = (sequelize, type) => {
             allowNull: false,
             validate: {
                 isInt: {
-                    msg: 'the value must be numeric, bitch!'
+                    msg: 'Valor incorrecto'
                 }
             }
         },
