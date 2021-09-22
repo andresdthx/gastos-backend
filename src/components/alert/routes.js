@@ -72,16 +72,4 @@ const job = new CronJob('00 10 * * *', async() => {
 }, null, true, 'America/Bogota');
 job.start();
 
-const job = new CronJob('00 15 * * *', async() => {
-    try {
-            const alerts = await getAlertsByDate();
-            await sendNotification(alerts);
-            success(req, res, alerts);
-        } catch (error) {
-            errors(req, res, error.message);
-    }
-}, null, true, 'America/Bogota');
-job.start();
-
-
 module.exports = alertRouter;
