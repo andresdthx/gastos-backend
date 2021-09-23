@@ -17,6 +17,11 @@ module.exports = (sequelize, type) => {
         done: {
             type: type.BOOLEAN
         },
+        index: {
+            type: type.INTEGER,
+            unique: true,
+            allowNull: false
+        }
     },{
         timestamps: false,
     });

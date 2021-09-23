@@ -40,6 +40,7 @@ Subscribe.belongsTo(User);
 User.hasMany(Subscribe);
 Alert.belongsTo(TypeAlert);
 Activity.belongsTo(TypeAlert);
+Activity.belongsTo(User);
 
 sequelize.sync({ force: false, logging: false }).then(() => {
     console.log("Database connected!!")
