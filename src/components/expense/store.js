@@ -44,8 +44,22 @@ const getExpense = async(expenseId) => {
     return expense;
 }
 
+const deleteExpense = async(expenseId) => {
+    const expense = await Expense.destroy({
+        where: {
+            expenseId: expenseId
+        }
+    })
+    .then((rowDeleted) => { 
+        return { deleted: rowDeleted }
+    });
+
+    return expense;
+}
+
 module.exports = {
     list: getExpenses,
     listOne: getExpense,
-    create: createExpense
+    create: createExpense,
+    remove: deleteExpense
 }

@@ -1,5 +1,5 @@
 const { errors, success } = require('../../network/response');
-const { getExpenses, createExpense, getExpense } = require('./controller');
+const { getExpenses, createExpense, getExpense, deleteExpense } = require('./controller');
 const { validateData } = require('../../middlewares/expense.middleware');
 
 const expenseRouter = require('express').Router();
@@ -29,6 +29,15 @@ expenseRouter.post('/', validateData, async(req, res)=>{
 expenseRouter.get('/:id', async(req, res) => {
     try {
         const expense = await getExpense(req.params.id);
+        success(req, res, expense);
+    } catch (error) {
+        errors(req, res, error.message);
+    }
+});
+
+expenseRouter.delete('/:id', async(req, res) => {
+    try {
+        const expense = await deleteExpense(req.params.id);
         success(req, res, expense);
     } catch (error) {
         errors(req, res, error.message);

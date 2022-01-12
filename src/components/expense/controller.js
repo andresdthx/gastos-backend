@@ -1,5 +1,5 @@
 const { validateGrouper, loadInclude } = require("../../services/expense");
-const { list, create, listOne } = require("./store")
+const { list, create, listOne, remove } = require("./store")
 
 const getExpenses = async (userId, months, groupers) => {
 
@@ -20,8 +20,14 @@ const getExpense = async(expenseId) => {
 
 const createExpense = async(objExpense) => {
     const expense = await create(objExpense);
-    return expense;
     if(!expense) throw new Error('error creando gasto');
+
+    return expense;
+}
+
+const deleteExpense = async(expenseId) => {
+    const expense = await remove(expenseId);
+    if (!expense) throw new Error('Error deleted expense');
 
     return expense;
 }
@@ -29,5 +35,6 @@ const createExpense = async(objExpense) => {
 module.exports = {
     getExpenses,
     createExpense,
-    getExpense
+    getExpense,
+    deleteExpense
 }
