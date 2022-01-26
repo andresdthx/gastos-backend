@@ -1,9 +1,8 @@
 const { Expense, Category, Subcategory, sequelize } = require('../../db/connection');
 const { Op } = require('sequelize');
 
-const getExpenses = async (userUserId, months, group, attributes, include) =>{
+const getExpenses = async (userUserId, months) =>{
     const expenses = await Expense.findAll({
-        attributes: attributes,
         where: {
             [Op.and]:[
                { userUserId: userUserId },
@@ -12,7 +11,6 @@ const getExpenses = async (userUserId, months, group, attributes, include) =>{
                })
             ]
         },
-        group: group,
         order: [
             ['date', 'DESC']
         ],

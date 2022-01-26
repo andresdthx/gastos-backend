@@ -8,8 +8,7 @@ expenseRouter.post('/:id', async(req, res) =>{
     try {
         const userId = req.params.id;
         const months = req.body.months;
-        const groupers = req.body.groupers;
-        const expenses = await getExpenses(userId, months, groupers);
+        const expenses = await getExpenses(userId, months);
         success(req, res, expenses);
     } catch (error) {
         errors(req, res, error);
