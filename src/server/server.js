@@ -12,6 +12,7 @@ const categoryRouter = require('../components/category/routes');
 const subcategoryRouter = require('../components/subcategory/routes');
 const alertRouter = require('../components/alert/routes');
 const activityRouter = require('../components/activity/routes');
+const entryRouter = require('../components/entry/routes');
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/frontend/index.html'));
@@ -28,6 +29,7 @@ app.use('/api/categories', categoryRouter);
 app.use('/api/subcategories', subcategoryRouter);
 app.use('/api/alerts', alertRouter);
 app.use('/api/activities', activityRouter);
+app.use('/api/entries', entryRouter);
 
 app.get('/api/utils/months', (req, res) => {
     res.send(MONTHS);

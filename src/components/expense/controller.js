@@ -17,7 +17,7 @@ const getExpense = async(expenseId) => {
 
 const createExpense = async(objExpense) => {
     const expense = await create(objExpense);
-    if(!expense) throw new Error('error creando gasto');
+    if(!expense) throw new Error('Error creating expense');
 
     return expense;
 }

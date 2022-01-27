@@ -1,24 +1,25 @@
 module.exports = (sequelize, type) => {
-    return sequelize.define('nextExpenses', {
-        nextExpenseId: {
+    return sequelize.define('entries', {
+        entryId: {
             type: type.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             allowNull: false
         },
-        name: {
-            type: type.STRING,
-            allowNull: false
-        },
-        value: {
-            type: type.DECIMAL,
+        entry: {
+            type: type.INTEGER,
             allowNull: false,
             validate: {
                 isInt: {
-                    msg: 'incorrect next expense value'
+                    msg: 'incorrect entry value'
                 }
             }
-        }
+        },
+        date: {
+            type: type.STRING,
+            allowNull: false,
+
+        },
     },
     {
         timestamps: false
