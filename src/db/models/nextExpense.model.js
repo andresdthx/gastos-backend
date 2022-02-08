@@ -18,7 +18,11 @@ module.exports = (sequelize, type) => {
                     msg: 'incorrect next expense value'
                 }
             }
-        }
+        },
+        check: {
+            type: type.BOOLEAN,
+            defaultValue: false
+        },
     },
     {
         timestamps: false

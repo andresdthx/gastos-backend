@@ -47,7 +47,7 @@ Alert.belongsTo(TypeAlert);
 Activity.belongsTo(TypeAlert);
 Activity.belongsTo(User);
 Entry.belongsTo(User);
-NextExpense.belongsTo(Entry);
+Entry.hasMany(NextExpense, { as: "nextExpense" });
 
 sequelize.sync({ force: false, logging: false }).then(() => {
     console.log("Database connected!!")

@@ -7,6 +7,7 @@ const createEntry = async (objEntry) => {
 
 const getEntry = async (userUserId) => {
     const entries = await Entry.findAll({
+        include: ["nextExpense"] ,
         where: {
             userUserId: userUserId
         }
