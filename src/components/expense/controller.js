@@ -1,9 +1,17 @@
 const { validateGrouper, loadInclude } = require("../../services/expense");
-const { list, create, listOne, remove } = require("./store")
+const { list, create, listOne, remove, listByDate } = require("./store")
 
 const getExpenses = async (userId, months) => {
 
     const expenses = await list(userId, months);
+    if(!expenses) throw new Error('Gastos no encontrados');
+
+    return expenses;
+}
+
+const getExpensesOrderByDate = async (userId) => {
+
+    const expenses = await listByDate(userId);
     if(!expenses) throw new Error('Gastos no encontrados');
 
     return expenses;
@@ -31,7 +39,8 @@ const deleteExpense = async(expenseId) => {
 
 module.exports = {
     getExpenses,
-    createExpense,
     getExpense,
+    getExpensesOrderByDate,
+    createExpense,
     deleteExpense
 }

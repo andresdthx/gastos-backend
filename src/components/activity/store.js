@@ -1,15 +1,25 @@
-const { Activity, TypeAlert } = require('../../db/connection');
+const { Sequelize, Op } = require('sequelize');
+const { Activity, TypeAlert, sequelize } = require('../../db/connection');
 
 const getActivities = async (userUserId) => {
     const activities = await Activity.findAll({
-        where: { userUserId: userUserId},
-        include: [TypeAlert]
+        attributes: [
+            'activity',
+            'activityId',
+        // [Sequelize.literal(`DATE("date")`), 'date'],
+        // [Sequelize.literal(`COUNT(*)`), 'count']
+        [sequelize.fn('DATE', sequelize.col('date')), 'Date']
+        ],
+        group: [sequelize.fn('DATE', sequelize.col('date')), 'Date']
+        // group: ['date'],
+        // where: { userUserId: userUserId },
+        // include: [TypeAlert]
     });
     return activities;
 }
 
-const createActivity = async(data) => {
-    const createdActivity = await Activity.create({data});
+const createActivity = async (data) => {
+    const createdActivity = await Activity.create({ data });
     return createdActivity;
 }
 
