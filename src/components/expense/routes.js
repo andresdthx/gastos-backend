@@ -13,8 +13,8 @@ const expenseRouter = require("express").Router();
 expenseRouter.post("/:id", async (req, res) => {
   try {
     const userId = req.params.id;
-    const months = req.body.months;
-    const expenses = await getExpenses(userId, months);
+    const {months, year} = req.body;
+    const expenses = await getExpenses(userId, months, year);
     success(req, res, expenses);
   } catch (error) {
     errors(req, res, error);

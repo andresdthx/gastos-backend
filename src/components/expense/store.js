@@ -6,7 +6,7 @@ const {
 } = require("../../db/connection");
 const { Op } = require("sequelize");
 
-const getExpenses = async (userUserId, months) => {
+const getExpenses = async (userUserId, months, year) => {
   const expenses = await Expense.findAll({
     where: {
       [Op.and]: [
@@ -14,6 +14,7 @@ const getExpenses = async (userUserId, months) => {
         sequelize.where(sequelize.fn("month", sequelize.col("date")), {
           [Op.or]: months,
         }),
+        sequelize.where(sequelize.fn("year", sequelize.col("date")), year),
       ],
     },
     order: [["date", "DESC"]],
@@ -32,7 +33,7 @@ const getExpensesOrderByDate = async (userUserId) => {
 
     order: [["date", "DESC"]],
 
-    group: [sequelize.fn("month", sequelize.col("date"))],
+    group: [sequelize.fn("year", sequelize.col("date"))],
 
     include: [Category, Subcategory],
   });
